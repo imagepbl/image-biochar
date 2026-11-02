@@ -1,0 +1,208 @@
+timeline:
+  start: 2025
+  end: 2100
+  step: 5
+
+carbon_tax_scenarios:
+  c0:
+    directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/biochar/c0"
+  c50:
+    directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/biochar/c50"
+  c75:
+    directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/biochar/c75"
+  c100:
+    directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/biochar/c100"
+  c150:
+    directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/biochar/c150"
+  c200:
+    directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/biochar/c200"
+  c250:
+    directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/biochar/c250"
+  c400:
+    directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/biochar/c400"
+    residue_rationing_reference_directory: "X:/user/orhalem/TIMER_CDR/timer-prism/cdr_output/biochar_c400"
+
+land_scenarios:
+  ssp1m:
+    biochar_land_directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/biochar/SSP1_M"
+    landrent_directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/biochar/SSP1_redd50"
+    residue_directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/biochar/SSP1_M"
+  ssp2m: 
+    biochar_land_directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/biochar/SSP2_M"
+    landrent_directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/afforestation/SSP2_redd50"
+    residue_directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/biochar/SSP2_M"
+  ssp3h:
+    biochar_land_directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/biochar/SSP3_H"
+    landrent_directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/afforestation/SSP2_redd50"
+    residue_directory: "X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/scen/biochar/SSP3_H"
+
+defaults:
+  settings:
+    land_scenario: SSP2
+    print_diagnostics: true
+    proportional_residue_rationing: false
+    disabled_technologies: []
+    simplify_biochar: false
+    simplify_biochar_LT: false
+    carbon_persistence_model: azzi_power
+    yield_response_scenario: mean
+    allow_negative_yield_response: true
+    diffusion_rate_limit_per_year: 0.085
+    application_rate_t_ha: 20.0
+    max_cumulative_application_t_ha: null
+    agronomic_response_mode: fixed_window
+    agronomic_full_effect_years: 2
+    agronomic_year5_retention: 0.5
+
+  output_root: "X:/user/orhalem/TIMER_CDR/timer-prism/cdr_output"
+   
+runs:
+  - name: biochar_c400
+    carbon_tax: c400
+    land: ssp2m
+  - name: biochar_c400_LT
+    carbon_tax: c400
+    land: ssp2m
+    settings:
+      disabled_technologies: [1]
+  - name: biochar_c400_HT
+    carbon_tax: c400
+    land: ssp2m
+    settings:
+      disabled_technologies: [0]
+  - name: biochar_c400_LT_spp1
+    carbon_tax: c400
+    land: ssp1m
+    settings:
+      disabled_technologies: [0]
+  - name: biochar_c400_LT_spp3
+    carbon_tax: c400
+    land: ssp3h
+    settings:
+      disabled_technologies: [0]
+  - name: biochar_c400_HT_exp_carbon
+    carbon_tax: c400
+    land: ssp2m
+    settings:
+      carbon_persistence_model: azzi_exponential
+      disabled_technologies: [0]
+  - name: biochar_c400_LT_exp_carbon
+    carbon_tax: c400
+    land: ssp2m
+    settings:
+      carbon_persistence_model: azzi_exponential
+      disabled_technologies: [1]
+  - name: biochar_c400_LT_aging
+    carbon_tax: c400
+    land: ssp2m
+    settings: 
+      agronomic_response_mode: aging_within_window
+      disabled_technologies: [1]
+  - name: biochar_c400_cap
+    carbon_tax: c400
+    land: ssp2m
+    settings: 
+      max_cumulative_application_t_ha: 40.0
+  - name: biochar_c400_prop
+    carbon_tax: c400
+    land: ssp2m
+    settings: 
+      proportional_residue_rationing: true
+  - name: biochar_c400_LT_low_yield
+    carbon_tax: c400
+    land: ssp2m
+    settings: 
+      yield_response_scenario: low
+      disabled_technologies: [1]
+  - name: biochar_c400_LT_high_yield
+    carbon_tax: c400
+    land: ssp2m
+    settings: 
+      yield_response_scenario: high
+      disabled_technologies: [1]
+  - name: biochar_c400_high_yield
+    carbon_tax: c400
+    land: ssp2m
+    settings: 
+      yield_response_scenario: high
+  - name: biochar_c400_low_diff
+    carbon_tax: c400
+    land: ssp2m
+    settings:
+      diffusion_rate_limit_per_year: 0.04
+  - name: biochar_c400_high_diff
+    carbon_tax: c400
+    land: ssp2m
+    settings:
+      diffusion_rate_limit_per_year: 0.15
+  - name: biochar_c0
+    carbon_tax: c0
+    land: ssp2m
+  - name: biochar_c50
+    carbon_tax: c50
+    land: ssp2m
+  - name: biochar_c75
+    carbon_tax: c75
+    land: ssp2m
+  - name: biochar_c100
+    carbon_tax: c100
+    land: ssp2m
+  - name: biochar_c150
+    carbon_tax: c150
+    land: ssp2m
+  - name: biochar_c200
+    carbon_tax: c200
+    land: ssp2m
+  - name: biochar_c250
+    carbon_tax: c250
+    land: ssp2m
+  - name: biochar_c0_stylised
+    carbon_tax: c0
+    land: ssp2m
+    settings:
+      simplify_biochar: true
+  - name: biochar_c50_stylised
+    carbon_tax: c50
+    land: ssp2m
+    settings:
+      simplify_biochar: true
+  - name: biochar_c75_stylised
+    carbon_tax: c75
+    land: ssp2m
+    settings:
+      simplify_biochar: true
+  - name: biochar_c100_stylised
+    carbon_tax: c100
+    land: ssp2m
+    settings:
+      simplify_biochar: true
+  - name: biochar_c150_stylised
+    carbon_tax: c150
+    land: ssp2m
+    settings:
+      simplify_biochar: true
+  - name: biochar_c200_stylised
+    carbon_tax: c200
+    land: ssp2m
+    settings:
+      simplify_biochar: true
+  - name: biochar_c250_stylised
+    carbon_tax: c250
+    land: ssp2m
+    settings:
+      simplify_biochar: true
+  - name: biochar_c400_stylised
+    carbon_tax: c400
+    land: ssp2m
+    settings:
+      simplify_biochar: true
+  - name: biochar_c400_LT_stylised
+    carbon_tax: c400
+    land: ssp2m
+    settings:
+      simplify_biochar_LT: true
+  - name: biochar_c400_low_rate
+    carbon_tax: c400
+    land: ssp2m
+    settings:
+      application_rate_t_ha: 10.0
