@@ -441,12 +441,11 @@ def allocate_biochar_application(
             transport_c_cost_penalty = transport_emis_C * carbon_tax[reg]
 
             yield_revenue_option = np.repeat(
-                self.yield_revenues.values[cell][:, None],
+                self.yield_revenues.values[cell, :][:, None],
                 len(BiocharFeedstock.coords),
                 axis=1
             ).astype(np.float32)
 
-            yield_revenue_option[...] = 0.0
             if not self._simplification_enabled():
                 yield_revenue_option[:, ligneous_mask] = 0.0
 

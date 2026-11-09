@@ -6,7 +6,7 @@ import numpy as np
 from utils.write_unf import WriteUNF
 
 # Paths
-scratch = "X:/user/orhalem/TIMER_CDR/timer-prism/cdr_output/biochar2image/static_data"
+scratch = "X:/user/orhalem/image_biochar/cdr_output/biochar2image/static_data"
 outdir = "X:/user/scherrenbm/ModelDevelopment/IMAGE_Development/IMAGE_Biochar/Biochar_Data/unf_5min/"
 
 # Files and how to rename them in the UNF-file

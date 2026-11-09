@@ -95,16 +95,16 @@ TimePeriods = prism.Dimension('period', list(range(27)))
 HarvestGroup3 = prism.Dimension("harvest_group3", list(range(3)))
 
 """ Specify data directories """
-global_data_dir = Path(r"X:\user\orhalem\TIMER_CDR\timer-prism\timer\data\data\global")
-land_data_dir = Path(r'X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/sa/landuse')
-land_emis_data_dir = Path(r'X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/data/landemis')
-land_output_dir = Path(r'X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/sa/landuse/output')
-affor_data_dir = Path(r'X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/sa/afforestation')
-biocrops_data_dir = Path(r'X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/sa/biomass')
-res_data_dir = Path(r'X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/data/residues')
-erw_data_dir = Path(r'X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/data/erw')
-erw_sa_dir = Path(r'X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/sa/erw')
-biochar_data_dir = Path(r'X:/user/orhalem/TIMER_CDR/timer-prism/timer/data/data/biochar')
+global_data_dir = Path(r"X:\user\orhalem\image_biochar\timer\data\data\global")
+land_data_dir = Path(r'X:/user/orhalem/image_biochar/timer/data/sa/landuse')
+land_emis_data_dir = Path(r'X:/user/orhalem/image_biochar/timer/data/data/landemis')
+land_output_dir = Path(r'X:/user/orhalem/image_biochar/timer/data/sa/landuse/output')
+affor_data_dir = Path(r'X:/user/orhalem/image_biochar/timer/data/sa/afforestation')
+biocrops_data_dir = Path(r'X:/user/orhalem/image_biochar/timer/data/sa/biomass')
+res_data_dir = Path(r'X:/user/orhalem/image_biochar/timer/data/data/residues')
+erw_data_dir = Path(r'X:/user/orhalem/image_biochar/timer/data/data/erw')
+erw_sa_dir = Path(r'X:/user/orhalem/image_biochar/timer/data/sa/erw')
+biochar_data_dir = Path(r'X:/user/orhalem/image_biochar/timer/data/data/biochar')
 emis_results_data_dir = Path(r'X:\user\scherrenbm\ModelDevelopment\IMAGE_Development\IMAGE_Biochar\Biochar_Code\SSP2\output\emissions')
 
 """ Define flags """
@@ -348,12 +348,12 @@ def plot_gridded_variable(
 
     
     if res == "5min":
-        grid_file = r"X:\user\orhalem\TIMER_CDR\timer-prism\timer\data\sa\biomass\IMAGE_grid_5min.nc"
+        grid_file = r"X:\user\orhalem\image_biochar\timer\data\sa\biomass\IMAGE_grid_5min.nc"
         grid_ds = xr.open_dataset(grid_file, engine="netcdf4")
         lats = grid_ds["lat"].isel(g=slice(0, -17221)).values
         lons = grid_ds["lon"].isel(g=slice(0, -17221)).values
     elif res == "30min":
-        grid_file = r"X:\user\orhalem\TIMER_CDR\timer-prism\timer\data\sa\biomass\IMAGE_grid_coordinates.nc"
+        grid_file = r"X:\user\orhalem\image_biochar\timer\data\sa\biomass\IMAGE_grid_coordinates.nc"
         grid_ds = xr.open_dataset(grid_file)
         lats = grid_ds["lat"].isel(grid=slice(0, -233)).values
         lons = grid_ds["lon"].isel(grid=slice(0, -233)).values
@@ -504,9 +504,9 @@ def plot_regional_maps(
         import pandas as pd
         import matplotlib.pyplot as plt
 
-        shp_path = r'X:\user\orhalem\TIMER_CDR\timer-prism\timer\data\sa\biochar\ne_110m_admin_0_countries.zip'
+        shp_path = r'X:\user\orhalem\image_biochar\timer\data\sa\biochar\ne_110m_admin_0_countries.zip'
         world = gpd.read_file(shp_path)
-        csv_file = r"X:\user\orhalem\TIMER_CDR\timer-prism\timer\data\sa\biochar\country_to_regions.csv"  
+        csv_file = r"X:\user\orhalem\image_biochar\timer\data\sa\biochar\country_to_regions.csv"  
         country_df = pd.read_csv(csv_file, sep=",")
 
         country_df = country_df[['ISO alpha-3', 'IMAGE region']].rename(

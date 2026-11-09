@@ -137,7 +137,7 @@ class BioCrop(prism.Model):
         self.region_cells.values, self.region_mask.values = region_to_grid("5m")
 
         slope_path = Path(
-            r"X:\user\orhalem\TIMER_CDR\timer-prism\timer\data\data\biomass\SlopeGT15Frac_complete.NC"
+            r"X:\user\orhalem\image_biochar\timer\data\data\biomass\SlopeGT15Frac_complete.NC"
         )
         with xr.open_dataset(slope_path, engine="netcdf4") as ds:
             slope = np.asarray(ds["SlopeGT15Frac"].values, dtype=np.float32).reshape(-1)

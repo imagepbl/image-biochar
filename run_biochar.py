@@ -80,18 +80,15 @@ class CO2Removal(prism.Model):
         # ExoResidues:  prism.Array[Region27, np.float32],
     ):
         
-        # Ensure LandRentBiochar sees the CURRENT timestep's age-averaged
-        # response before NPV is constructed (and not last timestep's map).
-        if self.biochar.agronomic_response_mode == "aging_within_window":
-            self.biochar._estimate_soil_effects(
-                time=time,
-                GAREA5m=GAREA5m,
-                GLANDCOVERFrac=GLANDCOVERFrac,
-                GFRAC=GFRAC,
-                GFERTILISER=GFERTILISER,
-                GCH4=GCH4,
-                GN2O=GN2O,
-            )
+        self.biochar._estimate_soil_effects(
+            time=time,
+            GAREA5m=GAREA5m,
+            GLANDCOVERFrac=GLANDCOVERFrac,
+            GFRAC=GFRAC,
+            GFERTILISER=GFERTILISER,
+            GCH4=GCH4,
+            GN2O=GN2O,
+        )
 
         self.landrent.compute_values(
             time=time,

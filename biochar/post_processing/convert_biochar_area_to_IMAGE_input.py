@@ -9,11 +9,11 @@ from pathlib import Path
 scenario_name = "biochar_c400_LT"
 
 scratch_dir = Path(
-    r"X:\user\orhalem\TIMER_CDR\timer-prism\cdr_output\biochar_c400_LT"
+    r"X:\user\orhalem\image_biochar\cdr_output\biochar_c400_LT"
 )
 
 output_root = Path(
-    r"X:\user\orhalem\TIMER_CDR\timer-prism\cdr_output\biochar2image"
+    r"X:\user\orhalem\image_biochar\cdr_output\biochar2image"
 )
 
 output_dir = output_root / scenario_name
