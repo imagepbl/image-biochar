@@ -232,15 +232,15 @@ build_multiple_proportional_timer_scenarios = build_multiple_timer_residual_scen
 
 if __name__ == "__main__":
     residue_dir = Path(
-        r"X:\user\orhalem\TIMER_CDR\timer-prism"
+        r"X:\user\orhalem\image_biochar"
         r"\timer\data\scen\biochar\SSP2_M_main"
     )
     biochar_dir = Path(
-        r"X:\user\orhalem\TIMER_CDR\timer-prism"
+        r"X:\user\orhalem\image_biochar"
         r"\cdr_output\biochar_c400_prop"
     )
     output_root = Path(
-        r"X:\user\orhalem\TIMER_CDR\timer-prism"
+        r"X:\user\orhalem\image_biochar"
         r"\cdr_output\biochar2timer"
     )
 

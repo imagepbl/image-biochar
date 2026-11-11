@@ -10,7 +10,7 @@ scenario_name = "biochar_c400_LT"
 ctax_scen = "c400"
 
 project_root = Path(
-    r"X:\user\orhalem\TIMER_CDR\timer-prism"
+    r"X:\user\orhalem\image_biochar"
 )
 
 input_path = project_root / "timer" / "data" / "scen" / "biochar" / ctax_scen / "ctax.out"

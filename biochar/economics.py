@@ -326,29 +326,35 @@ def determine_land_suitability(
         * (cropland_area / 100.0)  # ha to km2
     )
 
-    # Sum across each year of the application window
-    yield_revenues = annual_yield_revenues * len(YieldHorizon.coords)
-
-    if getattr(self, "agronomic_response_mode", "fixed_window") == "aging_within_window":
-        if (len(YieldHorizon.coords) != int(self.application_interval)
-                or len(YieldHorizon.coords) != int(time.dt.magnitude)):
+    n_years = len(YieldHorizon.coords)
+    mode = getattr(self, "agronomic_response_mode", "fixed_window")
+    if mode == "aging_within_window":
+        if (n_years != int(self.application_interval) or n_years != int(time.dt.magnitude)):
             raise ValueError(
-                "aging_within_window requires YieldHorizon, application_interval, and the simulation timestep to cover the same five years"
+                "aging_within_window requires YieldHorizon, application_interval, and the simulation timestep to cover the same number of years"
             )
-    else:
-        self.yield_revenues.values[:, :] = 0.0
+    elif mode != "fixed_window":
+        raise ValueError(
+            f"Unknown agronomic_response_mode: {mode!r}"
+        )
 
-        if not getattr(self, "simplify_biochar", False):
-            yield_tech = (
-                int(self.simplified_technology_index)
-                if getattr(self, "simplify_biochar_LT", False)
-                else 0
-            )
-            self.yield_revenues.values[:, yield_tech] = np.where(
-                cropland_area > 1.0,
-                yield_revenues,
-                0.0,
-            ).astype(np.float32)
+    yield_revenues = annual_yield_revenues * np.float32(n_years)
+
+    self.yield_revenues.values[:, :] = 0.0
+
+    if getattr(self, "simplify_biochar", False):
+        yield_revenues[...] = 0.0
+    else:
+        yield_tech = (
+            int(self.simplified_technology_index)
+            if getattr(self, "simplify_biochar_LT", False)
+            else 0
+        )
+        self.yield_revenues.values[:, yield_tech] = np.where(
+            cropland_area > 1.0,
+            yield_revenues,
+            0.0,
+        ).astype(np.float32)
 
     # Calculate potential revenues per unit of cropland area (ha)
     self.yield_revenues_ha[t] = np.divide(
@@ -621,6 +627,18 @@ def determine_land_suitability(
         biochar_land_rank[ranked_cells] = np.arange(ranked_cells.size, dtype=np.int32)
 
     self.biochar_land_rank.values = biochar_land_rank
+
+
+    from timer.cdr.biochar.diagnostics import print_land_rent_yield_diagnostics
+
+    print_land_rent_yield_diagnostics(
+        model=self,
+        time=time,
+        LandRent=LandRent,
+        LandRentBiochar=LandRentBiochar,
+        cropland_area=cropland_area,
+    )
+
 
 
 def calculate_mitigation_costs(

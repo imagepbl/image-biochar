@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 data_dir = Path(
-    r"X:\user\orhalem\TIMER_CDR\timer-prism"
+    r"X:\user\orhalem\image_biochar"
     r"\timer\data\scen\biochar\SSP2_M"
 )
 
